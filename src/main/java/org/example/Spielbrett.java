@@ -4,7 +4,15 @@ import java.util.Scanner;
 public class Spielbrett {
 
     public static int[][] generateSpielbrett() {
-        final int[][] brett = new int[10][10];
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Wie groß soll das Spielbrett sein?");
+        int größe = scanner.nextInt();
+        final int[][] brett = new int[größe][größe];
+        return brett;
+    }
+
+    public static int[][] generateDuplicateBrett(int [][] spielbrett) {
+        final int[][] brett = new int[getGröße(spielbrett)][getGröße(spielbrett)];
         return brett;
     }
 
@@ -23,7 +31,7 @@ public class Spielbrett {
     {
         for (int zeile = 0; zeile < spielbrett.length; zeile++)
         {
-            for (int spalte = 0; spalte < spielbrett[zeile].length; spalte++)
+            for (int spalte = 0; spalte < spielbrett.length; spalte++)
             {
                 System.out.print( spielbrett[zeile][spalte]  + "\t");
             }
@@ -32,19 +40,25 @@ public class Spielbrett {
     }
 
     public static int[][] fillSpielbrett(int spielbrett[][]){
+        int l =1;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("In welcher Zeile möchten sie die 1 setzten?");
-        int spalte = scanner.nextInt();
-        System.out.println("In welcher Spalte möchten sie die 1 setzten?");
-        int zeile = scanner.nextInt();
-        spielbrett[spalte - 1][zeile - 1] = 1;
-        System.out.println("Möchten sie weitere Zellen setzten?");
-
-        if (scanner.nextLine().contains("yes"))
-        {
-            fillSpielbrett(spielbrett);
-        }
+        System.out.println("Wie viele lebende Zelle wollen sie einrtagen?");
+        int numZellen = scanner.nextInt();
+            for (int i = 0; i < numZellen; i++) {
+                System.out.println("(Lebende Zelle #"+ i+1 +") In welcher Zeile möchten sie die 1 setzten?");
+                int zeile = scanner.nextInt();
+                System.out.println("(Lebende Zelle #"+ i+1 +") In welcher Spalte möchten sie die 1 setzten?");
+                int spalte = scanner.nextInt();
+                spielbrett[spalte - 1][zeile - 1] = 1;
+            }
         return spielbrett;
+    }
+
+    public static int getGröße (int[][] spielbrett){
+        int größe;
+        größe = spielbrett.length;
+
+        return größe;
     }
 }
 
