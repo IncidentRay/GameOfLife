@@ -15,34 +15,43 @@ public class Spielbrett {
 
     public static Zelle[][] generateDuplicateBrett(Zelle [][] spielbrett) {
         Zelle[][] brett = new Zelle[getGröße(spielbrett)][getGröße(spielbrett)];
-        return brett;
-    }
+
+        for (int zeile = 0; zeile < brett.length; zeile++) {
+            for (int spalte = 0; spalte < brett.length; spalte++) {
+                brett[zeile][spalte] = ToteZelle.generateToteZelle();
+            }}
+
+        return brett;}
 
     public static Zelle[][] defaultSpielbrett(){
         Zelle[][] defaultBrett = new Zelle[10][10];
-        defaultBrett[2][3].;
-        defaultBrett[2][4] = 1;
-        defaultBrett[2][5] = 1;
-        defaultBrett[3][4] = 1;
-        defaultBrett[4][4] = 1;
-        defaultBrett[4][5] = 1;
-        defaultBrett[5][5] = 1;
-        defaultBrett[4][6] = 1;
-        return defaultBrett;
-    }
+
+        for (int zeile = 0; zeile < defaultBrett.length; zeile++) {
+            for (int spalte = 0; spalte < defaultBrett.length; spalte++) {
+              defaultBrett[zeile][spalte] = ToteZelle.generateToteZelle();
+            }}
+
+        defaultBrett[2][3] = LebendeZelle.generateLebendeZelle();
+        defaultBrett[2][4] = LebendeZelle.generateLebendeZelle();
+        defaultBrett[2][5] = LebendeZelle.generateLebendeZelle();
+        defaultBrett[3][4] = LebendeZelle.generateLebendeZelle();
+        defaultBrett[4][4] = LebendeZelle.generateLebendeZelle();
+        defaultBrett[4][5] = LebendeZelle.generateLebendeZelle();
+        defaultBrett[5][5] = LebendeZelle.generateLebendeZelle();
+        defaultBrett[4][6] = LebendeZelle.generateLebendeZelle();
+        return defaultBrett;}
 
     public static void printSpielbrett(Zelle[][] spielbrett) {
         for (int zeile = 0; zeile < spielbrett.length; zeile++) {
             for (int spalte = 0; spalte < spielbrett.length; spalte++) {
 
-                if (spielbrett[zeile][spalte] == 1) {
+                if (spielbrett[zeile][spalte].heartbeat()) {
                     System.out.print("\uD83D\uDC7D" + "\t");
                 } else {
                     System.out.print("☠\uFE0F" + "\t");
                 }
             }
-            System.out.println();
-        }}
+            System.out.println();}}
 
     public static void fillSpielbrett(Zelle[][] spielbrett){
         Scanner scanner = new Scanner(System.in);
@@ -55,14 +64,13 @@ public class Spielbrett {
                 int zeile = scanner.nextInt();
                 System.out.println("(Lebende Zelle #" + i + ") In welcher Spalte möchten sie die 1 setzten?");
                 int spalte = scanner.nextInt();
-                spielbrett[zeile - 1][spalte - 1] = LebendeZelle.;
+                spielbrett[zeile - 1][spalte - 1] = LebendeZelle.generateLebendeZelle();
             }
         }
         else {
             System.out.println("Ungültige Eingabe! Try Again!");
             fillSpielbrett(spielbrett);
-        }
-    }
+        }}
 
     public static int getGröße (Zelle[][] spielbrett){
         int größe;
@@ -70,10 +78,8 @@ public class Spielbrett {
         return größe;
     }
 
-    public interface Zelle {
-        public int getHeartbeat ();
-        public void transform ();
-
+    interface Zelle {
+        boolean heartbeat ();
     }
 }
 

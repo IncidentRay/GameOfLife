@@ -1,6 +1,6 @@
 package org.example;
 
-public class Spielregeln implements Spielbrett.Zelle {
+public class Spielregeln {
 
     public static Spielbrett.Zelle[][] spielregeln (Spielbrett.Zelle[][] spielbrett){
 
@@ -11,13 +11,13 @@ public class Spielregeln implements Spielbrett.Zelle {
         for (int spalte = 0; spalte < spielbrett.length; spalte++) {
 
             anzahlNachbarn = nachbarCheck(zeile, spalte, spielbrett);
-            if (spielbrett[zeile][spalte] == (1)){
-               if (anzahlNachbarn < 2){duplicateBrett[zeile][spalte] = 0;}
-               if (anzahlNachbarn > 3){duplicateBrett[zeile][spalte] = 0;}
-               if (anzahlNachbarn >= 2 && anzahlNachbarn <= 3){duplicateBrett[zeile][spalte] = 1;}
+            if (spielbrett[zeile][spalte].heartbeat()){
+               if (anzahlNachbarn < 2){duplicateBrett[zeile][spalte] = ToteZelle.generateToteZelle();}
+               if (anzahlNachbarn > 3){duplicateBrett[zeile][spalte] = ToteZelle.generateToteZelle();}
+               if (anzahlNachbarn >= 2 && anzahlNachbarn <= 3){duplicateBrett[zeile][spalte] = LebendeZelle.generateLebendeZelle();}
             }
-            if (spielbrett[zeile][spalte] == (0)){
-                if (anzahlNachbarn == 3){duplicateBrett[zeile][spalte] = 1;}
+            if (!spielbrett[zeile][spalte].heartbeat()){
+                if (anzahlNachbarn == 3){duplicateBrett[zeile][spalte] = LebendeZelle.generateLebendeZelle();}
             }
         }}
         return duplicateBrett;
@@ -37,21 +37,9 @@ public class Spielregeln implements Spielbrett.Zelle {
                     valid = false;}
 
                 if (valid == true){
-                        if (spielbrett[nachbarZeile][nachbarSpalte] == 1) {counter++;}
+                        if (spielbrett[nachbarZeile][nachbarSpalte].heartbeat()) {counter++;}
                 }
         }   }
       return counter;
 }
-
-    @Override
-    public int getHeartbeat() {
-        int heartbeat =0;
-        return heartbeat;
-    }
-
-    @Override
-    public void transform() {
-
-    }
-
 }
