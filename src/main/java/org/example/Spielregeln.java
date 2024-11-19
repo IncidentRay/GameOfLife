@@ -1,11 +1,11 @@
 package org.example;
 
-public class Spielregeln {
+public class Spielregeln implements Spielbrett.Zelle {
 
-    public static int[][] spielregeln (int[][] spielbrett){
+    public static Spielbrett.Zelle[][] spielregeln (Spielbrett.Zelle[][] spielbrett){
 
         int anzahlNachbarn;
-        int [][] duplicateBrett = Spielbrett.generateDuplicateBrett(spielbrett);
+        Spielbrett.Zelle[][] duplicateBrett = Spielbrett.generateDuplicateBrett(spielbrett);
 
      for (int zeile = 0; zeile < spielbrett.length; zeile++) {
         for (int spalte = 0; spalte < spielbrett.length; spalte++) {
@@ -23,7 +23,7 @@ public class Spielregeln {
         return duplicateBrett;
     }
 
-    public static int nachbarCheck (int zeile, int spalte, int[][] spielbrett) {
+    public static int nachbarCheck (int zeile, int spalte, Spielbrett.Zelle[][] spielbrett) {
         int counter = 0;
 
         for (int z = -1; z <=1; z++){
@@ -42,4 +42,16 @@ public class Spielregeln {
         }   }
       return counter;
 }
+
+    @Override
+    public int getHeartbeat() {
+        int heartbeat =0;
+        return heartbeat;
+    }
+
+    @Override
+    public void transform() {
+
+    }
+
 }

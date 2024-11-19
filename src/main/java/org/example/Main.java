@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         int generationen;
-        int[][] spielbrett;
+        Spielbrett.Zelle[][] spielbrett;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Möchtest du mit dem defaultBrett arbeiten?");
         String defaultCheck = scanner.next();
