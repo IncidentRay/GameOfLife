@@ -24,8 +24,10 @@ public class Spielbrett {
         defaultBrett[2][4] = 1;
         defaultBrett[2][5] = 1;
         defaultBrett[3][4] = 1;
-        defaultBrett[3][5] = 1;
+        defaultBrett[4][4] = 1;
         defaultBrett[4][5] = 1;
+        defaultBrett[5][5] = 1;
+        defaultBrett[4][6] = 1;
         return defaultBrett;
     }
 
@@ -66,6 +68,12 @@ public class Spielbrett {
         int größe;
         größe = spielbrett.length;
         return größe;
+    }
+
+    public interface ZellenAbfrage {
+        public int heartbeat (int[][] spielbrett);
+        public void transform ();
+
     }
 }
 
