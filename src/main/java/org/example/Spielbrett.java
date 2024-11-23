@@ -33,20 +33,24 @@ public class Spielbrett {
         String randomCheck = scanner.next();
         if(randomCheck.equals("ja") || randomCheck.equals("Ja") || randomCheck.equals("j") || randomCheck.equals("y") || randomCheck.equals("yes")){
 
-            System.out.println("Wie viele lebende Zelle wollen sie einrtagen?");
+            System.out.println("Wie viele lebende Zelle wollen sie eintragen?");
             int numZellen = scanner.nextInt();
-            try{
+            Zelle randomZelle;
+            if (numZellen <= größe * größe && numZellen >= 0) {
+                for (int i =0; i < numZellen; i++) {
 
-                for (int i = 0; i < numZellen; i++) {
-                    int randomZeile = ThreadLocalRandom.current().nextInt(0, größe);
-                    int randomSpalte = ThreadLocalRandom.current().nextInt(0, größe);
-                    golBrett.zellen[randomZeile][randomSpalte] = new LebendeZelle();}
-
-            } catch (IllegalArgumentException e)
-            {System.out.println("Spielfeld zu klein! Try Again!"); fillSpielbrett(golBrett);}
-        }
+                    do {
+                     randomZelle = golBrett.randomGenerator(golBrett);
+                    }while (randomZelle.hasHeartbeat());
+                    randomZelle.addLife();
+        }}
+            else {
+            System.out.println("Zu viele gewünschte Zellen! Try Again with less!");
+            System.out.println("--------------");
+            fillSpielbrett(golBrett);
+        }}
         else{
-            System.out.println("Wie viele lebende Zelle wollen sie einrtagen?");
+            System.out.println("Wie viele lebende Zelle wollen sie eintragen?");
             int numZellen = scanner.nextInt();
             try {
                 if (numZellen <= größe * größe && numZellen >= 0) {
@@ -80,5 +84,17 @@ public class Spielbrett {
         defaultBrett.zellen[6][1] = new LebendeZelle();
         defaultBrett.zellen[7][1] = new LebendeZelle();
         defaultBrett.zellen[8][1] = new LebendeZelle();
+    }
+
+    public Zelle randomGenerator (Spielbrett golBrett) {
+
+            int randomZeile = ThreadLocalRandom.current().nextInt(0, größe);
+            int randomSpalte = ThreadLocalRandom.current().nextInt(0, größe);
+            Zelle randomZelle = golBrett.zellen[randomZeile][randomSpalte];
+
+                if (randomZelle.hasHeartbeat()) {
+                    golBrett.randomGenerator(golBrett);
+                }
+        return randomZelle;
     }
 }
